@@ -8,6 +8,15 @@
   </div>
 </template>
 
+<script>
+export default {
+  mounted () {
+    this.$store.dispatch(`sayHelloWorld`);
+  }
+}
+</script>
+
+
 <style lang="scss">
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
