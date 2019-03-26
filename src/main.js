@@ -11,9 +11,9 @@ Vue.use(Vuex);
 Vue.config.productionTip = false;
 
 const app = new Vue({
-  router,
-  store,
-  render: h => h(App)
+	router,
+	store,
+	render: h => h(App)
 }).$mount(`#app`);
 
-import 'vuetify/dist/vuetify.min.css'
+import 'vuetify/dist/vuetify.min.css';
