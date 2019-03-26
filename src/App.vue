@@ -25,7 +25,7 @@
             <v-toolbar-title>Application</v-toolbar-title>
         </v-toolbar>
         <v-content>
-            <login />
+            <member-index />
         </v-content>
         <v-footer color="indigo" app>
             <span class="white--text">&copy; 2017</span>
@@ -34,11 +34,11 @@
 </template>
 
 <script>
-import Login from './views/Login';
+import MemberIndex from './views/member/MemberIndex';
 
 export default {
 	components: {
-		Login
+		MemberIndex
 	},
 
 	data: () => ({
