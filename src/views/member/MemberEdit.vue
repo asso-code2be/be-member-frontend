@@ -1,11 +1,15 @@
 <template>
-    <div>
-
-    </div>
+	<div>
+		<h1>Member edit</h1>
+	</div>
 </template>
 
 <script>
-    export default {
-
-    }
+export default {
+	data() {
+		return {
+			//
+		}
+	}
+}
 </script>
