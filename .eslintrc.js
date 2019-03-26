@@ -20,6 +20,10 @@ module.exports = {
             "error",
             "tab"
         ],
+        "semi": [
+            "error",
+            "always"
+        ]
     },
     parserOptions: {
         parser: "babel-eslint"
