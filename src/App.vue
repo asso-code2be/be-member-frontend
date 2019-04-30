@@ -2,6 +2,14 @@
   <v-app id="layout">
     <v-navigation-drawer v-model="drawer" fixed app>
       <v-list dense>
+        <v-list-tile @click="goTo('login')">
+          <v-list-tile-action>
+            <v-icon>account_box</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Login</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
         <v-list-tile @click="goTo('member.index')">
           <v-list-tile-action>
             <v-icon>account_box</v-icon>

@@ -17,17 +17,17 @@ export default new Router({
 			component: Dashboard
 		},
 		{
-			path: `login`,
+			path: `/login`,
 			name: `login`,
 			component: Login
 		},
 		{
-			path: `members`,
+			path: `/members`,
 			name: `member.index`,
 			component: MemberIndex
 		},
 		{
-			path: `members/:id/edit`,
+			path: `/members/:id/edit`,
 			name: `member.edit`,
 			component: MemberEdit,
 			props: true

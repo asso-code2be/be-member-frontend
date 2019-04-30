@@ -7,8 +7,7 @@
         <td class="text-xs-right">{{ props.item.lastname }}</td>
         <td class="text-xs-right">{{ props.item.firstname }}</td>
         <td class="text-xs-right">
-          <router-link :to="`/members/${props.item.id}/edit`">TEST</router-link>
-          <v-btn :href="`/members/${props.item.id}/edit`">Modifier</v-btn>
+          <v-btn :to="`/members/${props.item.id}/edit`">Modifier</v-btn>
         </td>
       </template>
     </v-data-table>
