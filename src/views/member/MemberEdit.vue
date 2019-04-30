@@ -1,15 +1,17 @@
 <template>
-	<div>
-		<h1>Member edit</h1>
-	</div>
+  <div>
+    <h1>Member edit</h1>
+  </div>
 </template>
 
 <script>
 export default {
-	data() {
-		return {
-			//
-		}
-	}
-}
+  name: "MemberEdit",
+  data() {
+    return {};
+  },
+  mounted() {
+    console.log("mounted");
+  }
+};
 </script>

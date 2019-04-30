@@ -22,14 +22,15 @@ export default new Router({
 			component: Login
 		},
 		{
-			path: `membres`,
+			path: `members`,
 			name: `member.index`,
 			component: MemberIndex
 		},
 		{
-			path: `membres/modifier`,
+			path: `members/:id/edit`,
 			name: `member.edit`,
-			component: MemberEdit
+			component: MemberEdit,
+			props: true
 		}
 	]
 });
