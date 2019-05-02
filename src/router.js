@@ -31,6 +31,12 @@ export default new Router({
 			name: `member.edit`,
 			component: MemberEdit,
 			props: true
+		},
+		{
+			path: `/members/add`,
+			name: `member.add`,
+			component: MemberEdit,
+			props: true
 		}
 	]
 });
