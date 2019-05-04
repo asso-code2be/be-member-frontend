@@ -28,9 +28,24 @@
       <v-dialog v-model="dialog" max-width="500px">
           <v-card>
             <v-card-text>
-              <v-text-field label="Nom"></v-text-field>
-              <v-text-field label="Prénom"></v-text-field>
-              <v-text-field label="Adresse mail"></v-text-field>
+              <v-text-field
+								v-model="nom"
+								:rules="nameRules"
+								label="Nom"
+								required
+							/>
+              <v-text-field
+								v-model="prenom"
+								:rules="nameRules"
+								label="Prénom"
+								required
+							/>
+              <v-text-field
+								v-model="email"
+								:rules="emailRules"
+								label="E-mail"
+								required
+							/>
               <small class="grey--text">* This doesn't actually save.</small>
             </v-card-text>
             <v-card-actions>
@@ -66,7 +81,17 @@ export default {
           sortable: false,
           value: "actions" }
       ],
-      dialog: false
+			dialog: false,
+			firstname: ``,
+			lastname: ``,
+			nameRules: [
+				v => !!v || `Veuillez completer ce champ`,
+			],
+			email: ``,
+			emailRules: [
+				v => !!v || `Veuillez completer ce champ`,
+				v => /.+@.+/.test(v) || `Entrez une adresse email valide`
+			]
     };
   },
   mounted() {
