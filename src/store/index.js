@@ -10,22 +10,26 @@ export default new Vuex.Store({
 			{
 				id: 1,
 				firstname: 'Fleury',
-				lastname: 'Thierry'
+				lastname: 'Thierry',
+				emailadress: 'Thierry.Fleury@code2be.fr'
 			},
 			{
 				id: 2,
 				firstname: 'Vrignault',
-				lastname: 'Benoît'
+				lastname: 'Benoît',
+				emailadress: 'Benoît.Vrignault@code2be.fr'
 			},
 			{
 				id: 3,
 				firstname: 'Angibaud',
-				lastname: 'Laurent'
+				lastname: 'Laurent',
+				emailadress: 'Laurent.Angibaud@code2be.fr'
 			},
 			{
 				id: 4,
 				firstname: 'François',
-				lastname: 'Sébastien'
+				lastname: 'Sébastien',
+				emailadress: 'Sébastien.François@code2be.fr'
 			}
 		]
 	},
