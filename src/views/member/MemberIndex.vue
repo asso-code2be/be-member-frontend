@@ -10,23 +10,45 @@
         <td class="text-xs-left">{{ props.item.firstname }}</td>
         <td class="text-xs-left">{{ props.item.emailadress }}</td>
         <td class="text-xs-right">
-          <v-btn :to="`/members/${props.item.id}/edit`">Modifier</v-btn>
+          <!-- <v-btn :to="`/members/${props.item.id}/edit`">Modifier</v-btn> -->
+          <v-btn
+              fab
+              small
+              color="indigo"
+              center
+              left
+              relative
+              @click="formTitle = 'Modification',
+              dialog = !dialog,
+              nom = props.item.lastname,
+              prenom = props.item.firstname,
+              email = props.item.emailadress"
+            >
+            <v-icon class="white--text">edit</v-icon>
+          </v-btn>
         </td>
       </template>
     </v-data-table>
     <v-btn
+          v-on:click="formTitle = 'Nouveau membre'"
           fab
           small
           color="indigo"
           bottom
           left
           relative
-          @click="dialog = !dialog"
+          @click="dialog = !dialog,
+          clear(nom),
+          prenom='',
+          email=''"
         >
         <v-icon class="white--text">add</v-icon>
       </v-btn>
       <v-dialog v-model="dialog" max-width="500px">
           <v-card>
+            <v-card-title>
+              <span class="headline">{{ formTitle }}</span>
+            </v-card-title>
             <v-card-text>
               <v-text-field
 								v-model="nom"
@@ -50,7 +72,7 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn flat color="primary" @click="dialog = false">Submit</v-btn>
+              <v-btn flat color="primary" @click="dialog = false">Valider</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -93,6 +115,11 @@ export default {
 				v => /.+@.+/.test(v) || `Entrez une adresse email valide`
 			]
     };
+  },
+  methods: {
+    onClick() {
+      dialog =! dialog;
+    }
   },
   mounted() {
     //this.$store.dispatch("getAllMembers");
