@@ -2,30 +2,31 @@
   <div>
     <h1>Member Index</h1>
     
-    <v-data-table :headers="headers" :items="membersList" class="elevation-1">
+    <v-data-table 
+      :headers="headers"
+      :items="localMembersList"
+      :rows-per-page-items="[5, 10,20, {'text':'$vuetify.dataIterator.rowsPerPageAll','value':-1}]"
+      class="elevation-1">
       
       <template v-slot:items="props">
         <td class="text-xs-left">{{ props.item.id }}</td>
         <td class="text-xs-left">{{ props.item.lastname }}</td>
         <td class="text-xs-left">{{ props.item.firstname }}</td>
         <td class="text-xs-left">{{ props.item.emailadress }}</td>
-        <td class="text-xs-right">
-          <!-- <v-btn :to="`/members/${props.item.id}/edit`">Modifier</v-btn> -->
-          <v-btn
-              fab
-              small
-              color="indigo"
-              center
-              left
-              relative
-              @click="formTitle = 'Modification',
-              dialog = !dialog,
-              nom = props.item.lastname,
-              prenom = props.item.firstname,
-              email = props.item.emailadress"
-            >
-            <v-icon class="white--text">edit</v-icon>
-          </v-btn>
+        <td class="justify-center layout px-0">
+          <v-icon
+            small
+            class="mr-2"
+            @click="editItem(props.item)"
+          >
+            edit
+          </v-icon>
+          <v-icon
+            small
+            @click="deleteItem(props.item)"
+          >
+            delete
+          </v-icon>
         </td>
       </template>
     </v-data-table>
@@ -37,10 +38,7 @@
           bottom
           left
           relative
-          @click="dialog = !dialog,
-          clear(nom),
-          prenom='',
-          email=''"
+          @click="dialog = !dialog"
         >
         <v-icon class="white--text">add</v-icon>
       </v-btn>
@@ -51,20 +49,20 @@
             </v-card-title>
             <v-card-text>
               <v-text-field
-								v-model="nom"
+								v-model="editedItem.lastname"
 								:rules="nameRules"
 								label="Nom"
 								required
 							/>
               <v-text-field
-								v-model="prenom"
+								v-model="editedItem.firstname"
 								:rules="nameRules"
 								label="Prénom"
 								required
 							/>
               <v-text-field
-								v-model="email"
-								:rules="emailRules"
+								v-model="editedItem.emailadress"
+								:rules="emailValidator"
 								label="E-mail"
 								required
 							/>
@@ -72,7 +70,8 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn flat color="primary" @click="dialog = false">Valider</v-btn>
+              <v-btn color="blue darken-1" flat @click="close">Annuler</v-btn>
+              <v-btn flat color="primary" @click="save">Valider</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -103,6 +102,21 @@ export default {
           sortable: false,
           value: "actions" }
       ],
+      localMembersList: [],
+      editedIndex: -1,
+      editedItem: {
+        id: 0,
+				firstname: '',
+				lastname: '',
+				emailadress: ''
+        },
+        defaultItem: {
+        id: 0,
+				firstname: '',
+				lastname: '',
+				emailadress: ''
+        },
+      newId: 0,
 			dialog: false,
 			firstname: ``,
 			lastname: ``,
@@ -110,19 +124,66 @@ export default {
 				v => !!v || `Veuillez completer ce champ`,
 			],
 			email: ``,
-			emailRules: [
+			emailValidator: [
 				v => !!v || `Veuillez completer ce champ`,
 				v => /.+@.+/.test(v) || `Entrez une adresse email valide`
 			]
     };
   },
-  methods: {
-    onClick() {
-      dialog =! dialog;
-    }
+  
+  created () {
+    this.initialize()
   },
+  
   mounted() {
     //this.$store.dispatch("getAllMembers");
+  },
+
+  methods: {
+
+    initialize () {
+        this.localMembersList = this.membersList;
+    },
+
+    editItem (item) {
+        
+        this.editedIndex = this.localMembersList.indexOf(item);
+        this.editedItem = Object.assign({}, item);
+        this.formTitle = 'Modification';
+        this.dialog =! this.dialog;
+        
+    },
+
+    deleteItem (item) {
+        const index = this.localMembersList.indexOf(item)
+        confirm('Are you sure you want to delete this item?') && this.localMembersList.splice(index, 1)
+    },
+
+    close () {
+        this.dialog = false
+        setTimeout(() => {
+          this.editedItem = Object.assign({}, this.defaultItem)
+          this.editedIndex = -1
+        }, 300)
+    },
+
+    save () {
+        if (this.editedIndex > -1) {
+          Object.assign(this.localMembersList[this.editedIndex], this.editedItem)
+        } else {
+          this.computeNewId();
+          this.editedItem.id = this.newId;
+          this.localMembersList.push(this.editedItem)
+        }
+        this.close()
+    },
+
+    computeNewId() {
+      let ids = this.localMembersList.map(a => a.id);
+      this.newId = Math.max.apply(Math, ids) + 1;
+    }
+
   }
+   
 };
 </script>
