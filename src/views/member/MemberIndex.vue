@@ -1,23 +1,34 @@
 <template>
-    <div>
-        <h1>Member Index</h1>
+    <v-container>
+        <h1>
+            Liste des membres
+        </h1>
+
+        <v-btn :to="{name : `member.create`}" color="green" dark icon>
+            <v-icon>
+                add
+            </v-icon>
+        </v-btn>
+
         <v-data-table :headers="headers" :items="membersList" class="elevation-1">
             <template v-slot:items="props">
                 <td>{{ props.item.id }}</td>
-                <td class="text-xs-right">
+                <td>
                     {{ props.item.lastname }}
                 </td>
-                <td class="text-xs-right">
+                <td>
                     {{ props.item.firstname }}
                 </td>
                 <td class="text-xs-right">
-                    <v-btn :to="`/members/${props.item.id}/edit`">
-                        Modifier
+                    <v-btn :to="{name: `member.edit`, props: {id:props.item.id}}" small icon>
+                        <v-icon dark small>
+                            edit
+                        </v-icon>
                     </v-btn>
                 </td>
             </template>
         </v-data-table>
-    </div>
+    </v-container>
 </template>
 
 <script>
@@ -27,15 +38,10 @@ export default {
 	data() {
 		return {
 			headers: [
-				{
-					text: `#`,
-					align: `left`,
-					sortable: true,
-					value: `id`
-				},
+				{ text: `#`, value: `id` },
 				{ text: `Nom`, value: `lastname` },
 				{ text: `Prénom`, value: `firstname` },
-				{ text: ``, value: `actions` }
+				{ text: ``, value: `actions`, sortable: false }
 			]
 		};
 	},
@@ -44,8 +50,14 @@ export default {
 		...mapState([`membersList`])
 	},
 
-	mounted() {
-		//this.$store.dispatch("getAllMembers");
-	}
+	async beforeRouteEnter(to, from, next) {
+		try {
+			// todo : load members
+			next();
+		} catch (e) {
+			console.log(e);
+			console.log(`Erreur lors de la récupération des membres.`);
+		}
+	},
 };
 </script>

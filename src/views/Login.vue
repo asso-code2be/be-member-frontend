@@ -6,34 +6,7 @@
                     <v-flex md4 sm8 xs12>
                         <v-card class="elevation-12">
                             <v-toolbar color="primary" dark>
-                                <v-toolbar-title>Login form</v-toolbar-title>
-                                <v-spacer />
-                                <v-tooltip bottom>
-                                    <template v-slot:activator="{ on }">
-                                        <v-btn :href="source" icon large target="_blank" v-on="on">
-                                            <v-icon large>
-                                                code
-                                            </v-icon>
-                                        </v-btn>
-                                    </template>
-                                    <span>Source</span>
-                                </v-tooltip>
-                                <v-tooltip right>
-                                    <template v-slot:activator="{ on }">
-                                        <v-btn
-                                                href="https://codepen.io/johnjleider/pen/wyYVVj"
-                                                icon
-                                                large
-                                                target="_blank"
-                                                v-on="on"
-                                        >
-                                            <v-icon large>
-                                                mdi-codepen
-                                            </v-icon>
-                                        </v-btn>
-                                    </template>
-                                    <span>Codepen</span>
-                                </v-tooltip>
+                                <v-toolbar-title>Authentification</v-toolbar-title>
                             </v-toolbar>
                             <v-card-text>
                                 <v-form>
@@ -49,7 +22,7 @@
                             </v-card-text>
                             <v-card-actions>
                                 <v-spacer />
-                                <v-btn color="primary">
+                                <v-btn @click="attempt" color="primary">
                                     Login
                                 </v-btn>
                             </v-card-actions>
@@ -65,15 +38,12 @@
 export default {
 	name: `Login`,
 
-	props: {
-		source: {
-			type: String,
-			default: null
-		}
-	},
+	methods: {
+		attempt() {
+			// todo : attempt to login the user using store.dispatch('authAttempt')(credentials)
 
-	data: () => ({
-		drawer: null
-	})
+			this.$router.push({ name: `dashboard` });
+		}
+	}
 };
 </script>

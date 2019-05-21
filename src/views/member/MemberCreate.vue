@@ -1,6 +1,6 @@
 <template>
-    <v-container>
-        <h1>&Eacute;dition d'un membre</h1>
+    <div>
+        <h1>Nouveau membre</h1>
 
         <v-layout row wrap>
             <v-flex md4 xs12>
@@ -23,49 +23,27 @@
         </v-layout>
 
         <!-- todo: add save button -->
-
-        <!-- todo: add delete button -->
-    </v-container>
+    </div>
 </template>
 
 <script>
-import store from '../../store/index';
-import cloneDeep from 'lodash/cloneDeep';
-
 export default {
-	name: `MemberEdit`,
-
-	props: {
-		id: {
-			type: Number,
-			default: null,
-		}
-	},
+	name: `MemberCreate`,
 
 	data() {
 		return {
-			member: cloneDeep(store.state.member),
+			member: {
+				firstname: ``,
+				lastname: ``,
+				email: ``,
+			},
 		};
-	},
-
-	async beforeRouteEnter(to, from, next) {
-		try {
-			await store.dispatch(`getMemberById`, to.params.id);
-			next();
-		} catch (e) {
-			console.log(e);
-			console.log(`Erreur lors de la récupération du membre.`);
-		}
 	},
 
 	methods: {
 		save() {
-			// todo : save this member
+			// todo : create this member using this.$store.actions('createMember')
 		},
-
-		delete() {
-			// todo : delete this member
-		}
 	}
 };
 </script>
