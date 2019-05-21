@@ -30,7 +30,11 @@ export default new Router({
 			path: `/members/:id/edit`,
 			name: `member.edit`,
 			component: MemberEdit,
-			props: true
+			props(route) {
+				const props = { ...route.params };
+				props.id = props.id ? +props.id : null;
+				return props;
+			},
 		}
 	]
 });
