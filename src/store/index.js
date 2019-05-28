@@ -74,6 +74,10 @@ export default new Vuex.Store({
 			commit(`CREATE_MEMBER`, member);
 		},
 
+		async updateMember({ commit }, member) {
+			commit(`UPDATE_MEMBER`, member);
+		},
+
 		async deleteMemberById({ commit }, id) {
 			commit(`DELETE_MEMBER`, id);
 		},

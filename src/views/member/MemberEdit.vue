@@ -17,12 +17,16 @@
 
             <v-flex md4 xs12>
                 <v-container grid-list-8>
-                    <v-text-field label="E-mail" required v-model="member.email" />
+                    <v-text-field label="E-mail" type="email" required v-model="member.email"
+                                  v-validate="'required|email'" />
                 </v-container>
             </v-flex>
         </v-layout>
 
         <!-- todo: add save button -->
+        <v-btn @click="save">
+            Enregistrer
+        </v-btn>
 
         <!-- todo: add delete button -->
     </v-container>
@@ -45,6 +49,7 @@ export default {
 	data() {
 		return {
 			member: cloneDeep(store.state.member),
+			saving: false,
 		};
 	},
 
@@ -59,8 +64,18 @@ export default {
 	},
 
 	methods: {
-		save() {
+		async save() {
 			// todo : save this member
+			this.saving = true;
+			try {
+				await store.dispatch(`updateMember`, this.member);
+
+			} catch (e) {
+				console.log(e);
+				console.log(`Erreur lors de la mise à jour du membre.`);
+			}
+			this.saving = false;
+			this.$router.push({name:`member.index`});
 		},
 
 		delete() {
