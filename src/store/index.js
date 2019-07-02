@@ -52,7 +52,8 @@ export default new Vuex.Store({
 		},
 
 		UPDATE_MEMBER(state, member) {
-			// todo: update a member
+			const test = state.membersList.find(m => m.id === member.id);
+			Object.assign(test, member);
 		},
 
 		DELETE_MEMBER(state, id) {

@@ -20,7 +20,7 @@
                     {{ props.item.firstname }}
                 </td>
                 <td class="text-xs-right">
-                    <v-btn :to="{name: `member.edit`, props: {id:props.item.id}}" small icon>
+                    <v-btn @click="editMember(props.item.id)" small icon>
                         <v-icon dark small>
                             edit
                         </v-icon>
@@ -59,5 +59,11 @@ export default {
 			console.log(`Erreur lors de la récupération des membres.`);
 		}
 	},
+
+    methods: {
+	    editMember(id) {
+            this.$router.push({name:`member.edit`, params: {id}});
+        }
+    },
 };
 </script>

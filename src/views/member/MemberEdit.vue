@@ -17,13 +17,11 @@
 
             <v-flex md4 xs12>
                 <v-container grid-list-8>
-                    <v-text-field label="E-mail" type="email" required v-model="member.email"
-                                  v-validate="'required|email'" />
+                    <v-text-field label="E-mail" type="email" required v-model="member.email" />
                 </v-container>
             </v-flex>
         </v-layout>
 
-        <!-- todo: add save button -->
         <v-btn @click="save">
             Enregistrer
         </v-btn>
@@ -65,11 +63,9 @@ export default {
 
 	methods: {
 		async save() {
-			// todo : save this member
 			this.saving = true;
 			try {
 				await store.dispatch(`updateMember`, this.member);
-
 			} catch (e) {
 				console.log(e);
 				console.log(`Erreur lors de la mise à jour du membre.`);
