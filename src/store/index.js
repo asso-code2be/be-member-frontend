@@ -48,7 +48,7 @@ export default new Vuex.Store({
 		},
 
 		CREATE_MEMBER(state, member) {
-			// todo: create a new member
+			state.membersList.push(member);
 		},
 
 		UPDATE_MEMBER(state, member) {

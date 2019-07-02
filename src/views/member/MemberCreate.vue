@@ -22,11 +22,15 @@
             </v-flex>
         </v-layout>
 
-        <!-- todo: add save button -->
-    </div>
+        <v-btn @click="save">
+            Ajouter
+        </v-btn>
+</div>
 </template>
 
 <script>
+import store from '../../store/index';
+
 export default {
 	name: `MemberCreate`,
 
@@ -37,13 +41,22 @@ export default {
 				lastname: ``,
 				email: ``,
 			},
+            saving: false,
 		};
 	},
 
 	methods: {
-		save() {
-			// todo : create this member using this.$store.actions('createMember')
-		},
+		async save() {
+			this.saving = true;
+			try {
+				await store.dispatch(`createMember`, this.member);
+			} catch (e) {
+				console.log(e);
+				console.log(`Erreur lors de l'ajout du membre.`);
+			}
+			this.saving = false;
+			this.$router.push({name:`member.index`});
+		}
 	}
 };
 </script>
