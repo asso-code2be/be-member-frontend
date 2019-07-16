@@ -41,7 +41,7 @@ export default {
 				lastname: ``,
 				email: ``,
 			},
-            saving: false,
+			saving: false,
 		};
 	},
 

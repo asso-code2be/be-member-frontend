@@ -28,20 +28,20 @@
                 </td>
             </template>
         </v-data-table>
-    </v-container>
+</v-container>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import {mapState} from "vuex";
 
 export default {
 	data() {
 		return {
 			headers: [
-				{ text: `#`, value: `id` },
-				{ text: `Nom`, value: `lastname` },
-				{ text: `Prénom`, value: `firstname` },
-				{ text: ``, value: `actions`, sortable: false }
+				{text: `#`, value: `id`},
+				{text: `Nom`, value: `lastname`},
+				{text: `Prénom`, value: `firstname`},
+				{text: ``, value: `actions`, sortable: false}
 			]
 		};
 	},
@@ -60,10 +60,10 @@ export default {
 		}
 	},
 
-    methods: {
-	    editMember(id) {
-            this.$router.push({name:`member.edit`, params: {id}});
-        }
-    },
+	methods: {
+		editMember(id) {
+			this.$router.push({name: `member.edit`, params: {id}});
+		}
+	},
 };
 </script>
