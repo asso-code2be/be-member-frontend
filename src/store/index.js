@@ -8,7 +8,7 @@ export default new Vuex.Store({
 	strict: process.env.NODE_ENV !== `production`,
 
 	state: {
-		membersList: [
+		members: [
 			{
 				id: 1,
 				firstname: `Fleury`,
@@ -44,31 +44,34 @@ export default new Vuex.Store({
 
 	getters: {
 		getMemberById: (state) => (id) => {
-			return state.membersList.find(m => m.id === id);
+			return state.members.find(m => m.id === id);
+		},
+		getMembers: (state) => {
+			return state.members;
 		},
 	},
 
 	mutations: {
 		SET_MEMBERS_LIST(state, list) {
-			state.membersList = list;
+			state.members = list;
 		},
 
 		CREATE_MEMBER(state, member) {
-			state.membersList.push(member);
+			state.members.push(member);
 		},
 
 		UPDATE_MEMBER(state, member) {
-			const test = state.membersList.find(m => m.id === member.id);
+			const test = state.members.find(m => m.id === member.id);
 			Object.assign(test, member);
 		},
 
 		DELETE_MEMBER(state, id) {
-			// todo: delete from database and state.membersList
+			// todo: delete from database and state.members
 		}
 	},
 
 	actions: {
-		async getAllMembers({commit}) {
+		async fetchMembers({commit}) {
 			const {data} = await api.get(`/members`);
 			commit(`SET_MEMBERS_LIST`, data);
 		},

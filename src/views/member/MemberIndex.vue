@@ -10,7 +10,7 @@
             </v-icon>
         </v-btn>
 
-        <v-data-table :headers="headers" :items="membersList" class="elevation-1">
+        <v-data-table :headers="headers" :items="members" class="elevation-1">
             <template v-slot:items="props">
                 <td>{{ props.item.id }}</td>
                 <td>
@@ -32,7 +32,8 @@
 </template>
 
 <script>
-import {mapState} from "vuex";
+import store from '../../store/index';
+import cloneDeep from 'lodash/cloneDeep';
 
 export default {
 	data() {
@@ -42,28 +43,16 @@ export default {
 				{text: `Nom`, value: `lastname`},
 				{text: `Prénom`, value: `firstname`},
 				{text: ``, value: `actions`, sortable: false}
-			]
-		};
-	},
+			],
+			members: cloneDeep(store.state.members),
 
-	computed: {
-		...mapState([`membersList`]),
+		};
 	},
 
 	methods: {
 		editMember(id) {
 			this.$router.push({name: `member.edit`, params: {id}});
 		},
-	},
-
-	async beforeRouteEnter(to, from, next) {
-		try {
-			// todo : load members
-			next();
-		} catch (e) {
-			console.log(e);
-			console.log(`Erreur lors de la récupération des membres.`);
-		}
 	},
 };
 </script>

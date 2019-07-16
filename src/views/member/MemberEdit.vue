@@ -53,7 +53,7 @@ export default {
 
 	async beforeRouteEnter(to, from, next) {
 		try {
-			await store.dispatch(`getMemberById`, to.params.id);
+			await store.getters.getMemberById(to.params.id);
 			next();
 		} catch (e) {
 			console.log(e);
