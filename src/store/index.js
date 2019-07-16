@@ -66,7 +66,8 @@ export default new Vuex.Store({
 		},
 
 		DELETE_MEMBER(state, id) {
-			// todo: delete from database and state.members
+			// todo: delete from database and state.membersList
+
 		}
 	},
 

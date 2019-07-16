@@ -25,17 +25,33 @@
                             edit
                         </v-icon>
                     </v-btn>
+                    <v-btn @click="confirmDeleteMember(props.item)" small icon>
+                        <v-icon dark small>
+                            delete
+                        </v-icon>
+                    </v-btn>
                 </td>
             </template>
         </v-data-table>
+		<modal-delete :visible.sync="modalDeleteVisibility" :width="450"
+					  @canceled="modalDeleteVisibility=false" @confirmed="deleteMember">
+			<template v-slot:content>
+				Êtes vous sur de vouloir supprimer {{ modalMemberToDelete.firstname }} {{ modalMemberToDelete.lastname }} ?
+			</template>
+		</modal-delete>
     </v-container>
 </template>
 
 <script>
 import store from '../../store/index';
 import cloneDeep from 'lodash/cloneDeep';
+import ModalDelete from '../../components/ModalDelete';
 
 export default {
+	name: `MemberIndex`,
+	components: {
+		ModalDelete,
+	},
 	data() {
 		return {
 			headers: [
@@ -45,11 +61,20 @@ export default {
 				{text: ``, value: `actions`, sortable: false}
 			],
 			members: cloneDeep(store.state.members),
-
+			modalDeleteVisibility: false,
+			modalMemberToDelete: {},
 		};
 	},
 
 	methods: {
+		confirmDeleteMember(member) {
+			this.modalMemberToDelete = member;
+			this.modalDeleteVisibility = true;
+		},
+		deleteMember(member) {
+			// TODO : delete member from store
+			this.modalDeleteVisibility = false;
+		},
 		editMember(id) {
 			this.$router.push({name: `member.edit`, params: {id}});
 		},
