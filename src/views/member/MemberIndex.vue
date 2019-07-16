@@ -28,7 +28,7 @@
                 </td>
             </template>
         </v-data-table>
-</v-container>
+    </v-container>
 </template>
 
 <script>
@@ -47,7 +47,13 @@ export default {
 	},
 
 	computed: {
-		...mapState([`membersList`])
+		...mapState([`membersList`]),
+	},
+
+	methods: {
+		editMember(id) {
+			this.$router.push({name: `member.edit`, params: {id}});
+		},
 	},
 
 	async beforeRouteEnter(to, from, next) {
@@ -57,12 +63,6 @@ export default {
 		} catch (e) {
 			console.log(e);
 			console.log(`Erreur lors de la récupération des membres.`);
-		}
-	},
-
-	methods: {
-		editMember(id) {
-			this.$router.push({name: `member.edit`, params: {id}});
 		}
 	},
 };
