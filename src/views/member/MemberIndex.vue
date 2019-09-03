@@ -10,7 +10,7 @@
             </v-icon>
         </v-btn>
 
-        <v-data-table :headers="headers" :items="membersList" class="elevation-1">
+        <v-data-table :headers="headers" :items="members" class="elevation-1">
             <template v-slot:items="props">
                 <td>{{ props.item.id }}</td>
                 <td>
@@ -20,44 +20,64 @@
                     {{ props.item.firstname }}
                 </td>
                 <td class="text-xs-right">
-                    <v-btn :to="{name: `member.edit`, props: {id:props.item.id}}" small icon>
+                    <v-btn @click="editMember(props.item.id)" small icon>
                         <v-icon dark small>
                             edit
+                        </v-icon>
+                    </v-btn>
+                    <v-btn @click="confirmDeleteMember(props.item)" small icon>
+                        <v-icon dark small>
+                            delete
                         </v-icon>
                     </v-btn>
                 </td>
             </template>
         </v-data-table>
+		<modal-delete :visible.sync="modalDeleteVisibility" :width="450"
+					  @canceled="modalDeleteVisibility=false" @confirmed="deleteMember">
+			<template v-slot:content>
+				Êtes vous sur de vouloir supprimer {{ modalMemberToDelete.firstname }} {{ modalMemberToDelete.lastname }} ?
+			</template>
+		</modal-delete>
     </v-container>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import store from '../../store/index';
+import cloneDeep from 'lodash/cloneDeep';
+import ModalDelete from '../../components/ModalDelete';
 
 export default {
+	name: `MemberIndex`,
+	components: {
+		ModalDelete,
+	},
 	data() {
 		return {
 			headers: [
-				{ text: `#`, value: `id` },
-				{ text: `Nom`, value: `lastname` },
-				{ text: `Prénom`, value: `firstname` },
-				{ text: ``, value: `actions`, sortable: false }
-			]
+				{text: `#`, value: `id`},
+				{text: `Nom`, value: `lastname`},
+				{text: `Prénom`, value: `firstname`},
+				{text: ``, value: `actions`, sortable: false}
+			],
+			members: cloneDeep(store.state.members),
+			modalDeleteVisibility: false,
+			modalMemberToDelete: {},
 		};
 	},
 
-	computed: {
-		...mapState([`membersList`])
-	},
-
-	async beforeRouteEnter(to, from, next) {
-		try {
-			// todo : load members
-			next();
-		} catch (e) {
-			console.log(e);
-			console.log(`Erreur lors de la récupération des membres.`);
-		}
+	methods: {
+		confirmDeleteMember(member) {
+			this.modalMemberToDelete = member;
+			this.modalDeleteVisibility = true;
+		},
+		deleteMember(member) {
+			// TODO : delete member from store
+			this.modalDeleteVisibility = false;
+		},
+		editMember(id) {
+			this.$router.push({name: `member.edit`, params: {id}});
+		},
 	},
 };
 </script>

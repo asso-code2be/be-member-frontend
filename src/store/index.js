@@ -8,7 +8,7 @@ export default new Vuex.Store({
 	strict: process.env.NODE_ENV !== `production`,
 
 	state: {
-		membersList: [
+		members: [
 			{
 				id: 1,
 				firstname: `Fleury`,
@@ -42,47 +42,54 @@ export default new Vuex.Store({
 		}
 	},
 
+	getters: {
+		getMemberById: (state) => (id) => {
+			return state.members.find(m => m.id === id);
+		},
+		getMembers: (state) => {
+			return state.members;
+		},
+	},
+
 	mutations: {
 		SET_MEMBERS_LIST(state, list) {
-			state.membersList = list;
+			state.members = list;
 		},
 
 		CREATE_MEMBER(state, member) {
-			// todo: create a new member
+			state.members.push(member);
 		},
 
 		UPDATE_MEMBER(state, member) {
-			// todo: update a member
+			const test = state.members.find(m => m.id === member.id);
+			Object.assign(test, member);
 		},
 
 		DELETE_MEMBER(state, id) {
 			// todo: delete from database and state.membersList
+
 		}
 	},
 
 	actions: {
-		async getAllMembers({ commit }) {
-			const { data } = await api.get(`/members`);
+		async fetchMembers({commit}) {
+			const {data} = await api.get(`/members`);
 			commit(`SET_MEMBERS_LIST`, data);
 		},
 
-		async getMemberById({ commit }, id) {
-			// todo: return the member for id
-		},
-
-		async createMember({ commit }, member) {
+		async createMember({commit}, member) {
 			commit(`CREATE_MEMBER`, member);
 		},
 
-		async updateMember({ commit }, member) {
+		async updateMember({commit}, member) {
 			commit(`UPDATE_MEMBER`, member);
 		},
 
-		async deleteMemberById({ commit }, id) {
+		async deleteMemberById({commit}, id) {
 			commit(`DELETE_MEMBER`, id);
 		},
 
-		async authAttempt({ commit }, credentials) {
+		async authAttempt({commit}, credentials) {
 			// todo : submit credentials => store the user using a mutation on auth.user
 		},
 	},
