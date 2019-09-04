@@ -31,12 +31,6 @@ export default new Vuex.Store({
 			}
 		],
 
-		member: {
-			id: 2,
-			firstname: `Vrignault`,
-			lastname: `Benoît`
-		},
-
 		auth: {
 			user: null
 		}
@@ -44,7 +38,7 @@ export default new Vuex.Store({
 
 	getters: {
 		getMemberById: (state) => (id) => {
-			return state.members.find(m => m.id === id);
+			return state.members.find(m => m.id === +id);
 		},
 		getMembers: (state) => {
 			return state.members;

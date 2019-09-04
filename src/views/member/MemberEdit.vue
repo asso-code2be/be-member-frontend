@@ -46,19 +46,9 @@ export default {
 
 	data() {
 		return {
-			member: cloneDeep(store.state.member),
+			member: cloneDeep(this.$store.getters.getMemberById(this.$route.params.id)),
 			saving: false,
 		};
-	},
-
-	async beforeRouteEnter(to, from, next) {
-		try {
-			await store.getters.getMemberById(to.params.id);
-			next();
-		} catch (e) {
-			console.log(e);
-			console.log(`Erreur lors de la récupération du membre.`);
-		}
 	},
 
 	methods: {
