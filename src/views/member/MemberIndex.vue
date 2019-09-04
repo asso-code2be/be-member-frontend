@@ -33,12 +33,13 @@
                 </td>
             </template>
         </v-data-table>
-		<modal-delete :visible.sync="modalDeleteVisibility" :width="450"
-					  @canceled="modalDeleteVisibility=false" @confirmed="deleteMember">
-			<template v-slot:content>
-				Êtes vous sur de vouloir supprimer {{ modalMemberToDelete.firstname }} {{ modalMemberToDelete.lastname }} ?
-			</template>
-		</modal-delete>
+        <modal-delete :visible.sync="modalDeleteVisibility" :width="450"
+                      @canceled="modalDeleteVisibility=false" @confirmed="deleteMember">
+            <template v-slot:content>
+                Êtes vous sur de vouloir supprimer {{ modalMemberToDelete.firstname }} {{ modalMemberToDelete.lastname
+                }} ?
+            </template>
+        </modal-delete>
     </v-container>
 </template>
 
