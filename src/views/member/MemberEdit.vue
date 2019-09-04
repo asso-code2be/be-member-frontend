@@ -78,7 +78,7 @@ export default {
 			try {
 				await store.dispatch(`updateMember`, this.member);
 			} catch (e) {
-				console.log(e);
+				// todo use snackbar instead of console.log https://v15.vuetifyjs.com/en/components/snackbars
 				console.log(`Erreur lors de la mise à jour du membre.`);
 			}
 			this.saving = false;
@@ -95,7 +95,7 @@ export default {
 			try {
 				await store.dispatch(`deleteMemberById`, this.member.id);
 			} catch (e) {
-				console.log(e);
+				// todo use snackbar instead of console.log https://v15.vuetifyjs.com/en/components/snackbars
 				console.log(`Erreur durant la suppression du membre.`);
 			}
 			this.deleting = false;

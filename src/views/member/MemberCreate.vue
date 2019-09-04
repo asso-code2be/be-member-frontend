@@ -25,7 +25,7 @@
         <v-btn @click="save">
             Ajouter
         </v-btn>
-</div>
+    </div>
 </template>
 
 <script>
@@ -51,11 +51,11 @@ export default {
 			try {
 				await store.dispatch(`createMember`, this.member);
 			} catch (e) {
-				console.log(e);
+				// todo use snackbar instead of console.log https://v15.vuetifyjs.com/en/components/snackbars
 				console.log(`Erreur lors de l'ajout du membre.`);
 			}
 			this.saving = false;
-			this.$router.push({name:`member.index`});
+			this.$router.push({name: `member.index`});
 		}
 	}
 };
