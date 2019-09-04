@@ -61,8 +61,8 @@ export default new Vuex.Store({
 
 		DELETE_MEMBER(state, id) {
 			state.members = state.members.filter(member => {
-				return member.id !== id
-			})
+				return member.id !== id;
+			});
 		}
 	},
 
