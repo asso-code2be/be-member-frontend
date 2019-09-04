@@ -60,31 +60,33 @@ export default new Vuex.Store({
 		},
 
 		DELETE_MEMBER(state, id) {
-			// todo: delete from database and state.membersList
-
+			state.members = state.members.filter(member => {
+				return member.id !== id
+			})
 		}
 	},
 
 	actions: {
-		async fetchMembers({commit}) {
-			const {data} = await api.get(`/members`);
+		async fetchMembers({ commit }) {
+			const { data } = await api.get(`/members`);
 			commit(`SET_MEMBERS_LIST`, data);
 		},
 
-		async createMember({commit}, member) {
+		async createMember({ commit }, member) {
 			commit(`CREATE_MEMBER`, member);
 		},
 
-		async updateMember({commit}, member) {
+		async updateMember({ commit }, member) {
 			commit(`UPDATE_MEMBER`, member);
 		},
 
-		async deleteMemberById({commit}, id) {
+		async deleteMemberById({ commit }, id) {
 			commit(`DELETE_MEMBER`, id);
 		},
 
-		async authAttempt({commit}, credentials) {
+		async authAttempt({ commit }, credentials) {
 			// todo : submit credentials => store the user using a mutation on auth.user
 		},
+	
 	},
 });
