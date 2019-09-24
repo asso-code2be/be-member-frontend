@@ -72,10 +72,17 @@ export default {
 			this.modalMemberToDelete = member;
 			this.modalDeleteVisibility = true;
 		},
-		deleteMember(member) {
-			// TODO : delete member from store
+		async deleteMember() {
 			this.modalDeleteVisibility = false;
-		},
+            try {
+                await store.dispatch(`deleteMemberById`, this.modalMemberToDelete.id);
+            } catch (e) {
+                // todo use snackbar instead of console.log https://v15.vuetifyjs.com/en/components/snackbars
+                console.log(`Erreur durant la suppression du membre.`);
+            }
+            this.members = cloneDeep(store.state.members);
+            this.deleting = false;
+        },
 		editMember(id) {
 			this.$router.push({name: `member.edit`, params: {id}});
 		},
