@@ -77,8 +77,7 @@ export default {
             try {
                 await store.dispatch(`deleteMemberById`, this.modalMemberToDelete.id);
             } catch (e) {
-                // todo use snackbar instead of console.log https://v15.vuetifyjs.com/en/components/snackbars
-                console.log(`Erreur durant la suppression du membre.`);
+                this.$emit(`displaySnackbar`, {text: `Erreur durant la suppression du membre.`});
             }
             this.members = cloneDeep(store.state.members);
             this.deleting = false;

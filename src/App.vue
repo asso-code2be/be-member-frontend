@@ -38,15 +38,32 @@
         </v-toolbar>
 
         <v-content>
-            <router-view />
+            <router-view @displaySnackbar="displaySnackbar"/>
         </v-content>
+
+        <v-snackbar
+                v-model="snackbar.show"
+                :top="true"
+        >
+            {{ snackbar.text }}
+            <v-btn
+                    color="pink"
+                    flat
+                    @click="snackbar.show = false"
+            >
+                Fermer
+            </v-btn>
+        </v-snackbar>
     </v-app>
 </template>
 
 <script>
 export default {
 	data: () => ({
-		drawer: null
+		drawer: null,
+        snackbar: {
+            show: false,
+        },
 	}),
 
 	methods: {
@@ -56,7 +73,12 @@ export default {
 
 		logout() {
 			// todo : do logout
-		}
+		},
+
+        displaySnackbar(payload) {
+            this.snackbar.show = true;
+            this.snackbar.text = payload.text;
+        },
 	}
 };
 </script>
